@@ -7,14 +7,37 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
     <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+    <!-- Bootstrap stylesheets and script -->
+    <link th:href="@{/css/bootstrap.css}" rel="stylesheet" />
+    <link th:href="@{/css/techjobs.css}" rel="stylesheet" />
+    <script type="text/javascript" th:src="@{/js/bootstrap.js}"></script>
+
 </head>
 <body>
 
+    <div th:fragment="page-header" class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <a th:href="@{/cheese}" class="navbar-brand">My Cheeses</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a th:href="@{/cheese}">List</a></li>
+                    <li><a th:href="@{/cheese/add}">Add</a></li>
+                    <li><a th:href="@{/cheese/remove}">Remove</a></li>
+                    <li><a th:href="@{/category}">Category</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+<!--
 <nav th:fragment="navigation">
     <a href="/cheese">Home</a> |
     <a href="/cheese">Categories</a> |
     <a href="/menu">Menus</a>
 </nav>
+-->
 
 </body>
 </html>

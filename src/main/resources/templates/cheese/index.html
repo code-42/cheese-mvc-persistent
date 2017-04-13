@@ -2,7 +2,11 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="fragments :: head"></head>
 
-<body class="container">
+<body>
+
+<div th:replace="fragments :: page-header"></div>
+
+<div class="container body-content">
 
 <h1 th:text="${title}">Default Title</h1>
 
@@ -26,7 +30,9 @@
     </tr>
 
 </table>
+
 <a href="/cheese/add">Add</a> |
 <a href="/cheese/remove">Remove</a>
+</div>
 </body>
 </html>
