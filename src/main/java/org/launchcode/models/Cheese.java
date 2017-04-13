@@ -58,7 +58,11 @@ public class Cheese {
         this.description = description;
     }
 
-//    public CheeseType getType() {
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    //    public CheeseType getType() {
 //        return type;
 //    }
 //
