@@ -1,11 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:fragment="head">
-    <meta charset="UTF-8"/>
-    <title th:text="${title}">My Cheeses</title>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
-    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <title th:text="${title}">My MVC Cheeses</title>
 
     <!-- Bootstrap stylesheets and script -->
     <link th:href="@{/css/bootstrap.css}" rel="stylesheet" />
@@ -22,22 +19,14 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a th:href="@{/cheese}">List</a></li>
-                    <li><a th:href="@{/cheese/add}">Add</a></li>
-                    <li><a th:href="@{/cheese/remove}">Remove</a></li>
-                    <li><a th:href="@{/category}">Category</a></li>
+                    <li><a th:href="@{/cheese}">Home</a></li>
+                    <li><a th:href="@{/category}">Categories</a></li>
+                    <li><a th:href="@{/menu}">Menus</a></li>
+
                 </ul>
             </div>
         </div>
     </div>
-
-<!--
-<nav th:fragment="navigation">
-    <a href="/cheese">Home</a> |
-    <a href="/cheese">Categories</a> |
-    <a href="/menu">Menus</a>
-</nav>
--->
 
 </body>
 </html>
