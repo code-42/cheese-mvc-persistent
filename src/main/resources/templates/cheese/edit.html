@@ -28,13 +28,17 @@
     <div class="form-group">
         <label th:name="type">Category</label>
         <select th:name="category">
+            <div>
             <option th:each="category : ${categories}"
                     th:text="${category.name}"
-                    th:value="${category.id}">
+                    th:value="${category.id}"
+                    th:selected="(${category.id} == *{category.id})">
             </option>
+            </div>
         </select>
     </div>
     <input type="hidden" th:value="${cheese.id}" name="cheeseId" />
+
     <input type="submit" value="Edit Cheese" />
 </form>
 

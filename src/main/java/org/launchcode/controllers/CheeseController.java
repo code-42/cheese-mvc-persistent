@@ -56,8 +56,8 @@ public class CheeseController {
     }
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
-    public String processAddCheeseForm(Model model, @ModelAttribute  @Valid Cheese newCheese,
-                                       Errors errors, @RequestParam int categoryId) {
+    public String processAddCheeseForm(@ModelAttribute  @Valid Cheese newCheese,
+                                       Errors errors, @RequestParam int categoryId, Model model) {
 
         if (errors.hasErrors()) {
             model.addAttribute("title", "Add Cheese");
@@ -82,14 +82,24 @@ public class CheeseController {
     @RequestMapping(value = "remove", method = RequestMethod.POST)
     public String processRemoveCheeseForm(@RequestParam int[] cheeseIds) {
 
+        /*
+        http://education.launchcode.org/skills-back-end-java/studios/cheese-mvc-persistent/one-to-many/
+        Review Cheese Deletion Code
+        The code to remove a Cheese object is already in place for you, but
+        since we won't have a reason to use the delete method on a CrudRepository
+        interface, read the code in displayRemoveCheeseForm and processRemoveCheeseForm
+        to see how to remove an item from the database
+        HOWEVER: processRemoveCheeseForm() crashes if the Cheese is in a Menu
+        Does this need to be fixed to pass the rubric?
+        */
         for (int cheeseId : cheeseIds) {
             cheeseDao.delete(cheeseId);
         }
         return "redirect:";
     }
 
-    @RequestMapping(value = "category", method = RequestMethod.GET)
-    public String category(Model model, @RequestParam int id) {
+    @RequestMapping(value = "category/{id}", method = RequestMethod.GET)
+    public String category(Model model, @PathVariable int id) {
 
         Category cat = categoryDao.findOne(id);
         List<Cheese> cheeses = cat.getCheeses();
@@ -99,7 +109,6 @@ public class CheeseController {
         return "cheese/index";
     }
 
-
     @RequestMapping(value = "edit/{cheeseId}", method = RequestMethod.GET)
     public String displayEditForm(Model model, @PathVariable int cheeseId){
 
@@ -107,6 +116,7 @@ public class CheeseController {
         if (theCheese == null){
             return "redirect:";
         }
+
         model.addAttribute("cheese", theCheese);
         model.addAttribute("title", "Edit Cheese");
         model.addAttribute("categories", categoryDao.findAll());
