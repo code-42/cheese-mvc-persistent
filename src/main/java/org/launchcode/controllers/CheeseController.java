@@ -2,6 +2,7 @@ package org.launchcode.controllers;
 
 import org.launchcode.models.Category;
 import org.launchcode.models.Cheese;
+import org.launchcode.models.Menu;
 import org.launchcode.models.data.CategoryDao;
 import org.launchcode.models.data.CheeseDao;
 import org.launchcode.models.data.MenuDao;
@@ -13,7 +14,11 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+
+import static java.awt.SystemColor.menu;
 
 /**
  * Created by LaunchCode
@@ -30,13 +35,14 @@ public class CheeseController {
 
     @Autowired
     MenuDao menuDao;
+    private int menuId;
 
     // Request path: /cheese
     @RequestMapping(value = "")
     public String index(Model model) {
 
         model.addAttribute("cheeses", cheeseDao.findAll());
-        model.addAttribute("title", "My Persistent Cheeses");
+        model.addAttribute("title", "My Cheeses");
 
         return "cheese/index";
     }
@@ -50,12 +56,12 @@ public class CheeseController {
     }
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
-    public String processAddCheeseForm(@ModelAttribute  @Valid Cheese newCheese,
-                                       Errors errors, @RequestParam int categoryId, Model model) {
+    public String processAddCheeseForm(Model model, @ModelAttribute  @Valid Cheese newCheese,
+                                       Errors errors, @RequestParam int categoryId) {
 
         if (errors.hasErrors()) {
             model.addAttribute("title", "Add Cheese");
-            model.addAttribute("categories", categoryDao.findAll());
+//            model.addAttribute("categories", categoryDao.findAll());
             return "cheese/add";
         }
 
@@ -68,6 +74,7 @@ public class CheeseController {
     @RequestMapping(value = "remove", method = RequestMethod.GET)
     public String displayRemoveCheeseForm(Model model) {
         model.addAttribute("cheeses", cheeseDao.findAll());
+        model.addAttribute("menuIds", menuDao.findAll());
         model.addAttribute("title", "Remove Cheese");
         return "cheese/remove";
     }
@@ -75,12 +82,10 @@ public class CheeseController {
     @RequestMapping(value = "remove", method = RequestMethod.POST)
     public String processRemoveCheeseForm(@RequestParam int[] cheeseIds) {
 
-        // TODO: cheese can only be removed if cheese is not in a Menu
-         for (int cheeseId : cheeseIds) {
-             System.out.println("CC.77.cheeseId == " + cheeseId);
-             cheeseDao.delete(cheeseId);
-         }
-         return "redirect:";
+        for (int cheeseId : cheeseIds) {
+            cheeseDao.delete(cheeseId);
+        }
+        return "redirect:";
     }
 
     @RequestMapping(value = "category", method = RequestMethod.GET)
@@ -99,9 +104,9 @@ public class CheeseController {
     public String displayEditForm(Model model, @PathVariable int cheeseId){
 
         Cheese theCheese = cheeseDao.findOne(cheeseId);
-//        if (theCheese == null){
-//            return "redirect:";
-//        }
+        if (theCheese == null){
+            return "redirect:";
+        }
         model.addAttribute("cheese", theCheese);
         model.addAttribute("title", "Edit Cheese");
         model.addAttribute("categories", categoryDao.findAll());
@@ -124,6 +129,7 @@ public class CheeseController {
         theCheese.setDescription(cheese.getDescription());
         cheeseDao.save(theCheese);
         return "redirect:";
+
     }
 
 

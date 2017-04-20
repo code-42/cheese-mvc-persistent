@@ -27,6 +27,11 @@ public class Menu {
 
     public Menu() { }
 
+    public Menu(String name) {
+        System.out.println("M.31.in Menu(name) constructor");
+        this.name = name;
+    }
+
     public void addItem(Cheese item){
         cheeses.add(item);
     }
