@@ -11,15 +11,31 @@
 
 <nav th:replace="fragments :: navigation"></nav>
 
-<form method="post">
+<form method="post" th:object="${form}">
 
-    <div th:each="cheese : ${cheeses}" class="checkbox">
+    <div th:each="cheese : ${cheeses}" class="checkbox" th:for="cheeseIds" >
         <input type="checkbox" name="cheeseIds" th:value="${cheese.id}" th:id="${cheese.id}"/>
         <label th:for="${cheese.id}" th:text="${cheese.name}"></label>
         <br />
     </div>
-    <!-- input type="hidden" name="menuIds" th:value="${menus}" /  -->
+
+    <input type="hidden" name="menus" th:value="${menus}" />
     <input type="submit" value="Remove Cheese" />
+
+    <p th:if="${message} == true">
+    <h4><span style="color:red" th:text="${'Remove Cheese functionality disabled.'}"></span></h4>
+    <div style="font-family:serif; font-size:18px">
+    <h2><span th:text="${'Review Cheese Deletion Code'}"></span></h2>
+    <span th:text="${'Presumably written and directed by Chris Bay at '}"></span>
+    <a href="http://education.launchcode.org/skills-back-end-java/studios/cheese-mvc-persistent/one-to-many#review-cheese-deletion-code" target="_blank"
+         th:href="@{http://education.launchcode.org/skills-back-end-java/studios/cheese-mvc-persistent/one-to-many#review-cheese-deletion-code}">
+        <span th:text="${'http://education.launchcode.org/skills-back-end-java/studios/cheese-mvc-persistent/one-to-many#review-cheese-deletion-code'}"></span>
+    </a>
+        <span th:text="${'&nbsp;&nbsp;The code to remove a Cheese object is already in place for you, but since
+        we won''t have a reason to use the delete method on a CrudRepository interface, read the code...'}"></span>
+    </div>
+    </p>
+
 </form>
 </div>
 </body>

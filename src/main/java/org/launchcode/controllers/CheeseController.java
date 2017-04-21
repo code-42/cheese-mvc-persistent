@@ -6,17 +6,23 @@ import org.launchcode.models.Menu;
 import org.launchcode.models.data.CategoryDao;
 import org.launchcode.models.data.CheeseDao;
 import org.launchcode.models.data.MenuDao;
+import org.launchcode.models.forms.AddMenuItemForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+import org.launchcode.controllers.MenuController.*;
+import org.launchcode.controllers.CategoryController.*;
 
 import javax.validation.Valid;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
 
 import static java.awt.SystemColor.menu;
 
@@ -73,29 +79,61 @@ public class CheeseController {
 
     @RequestMapping(value = "remove", method = RequestMethod.GET)
     public String displayRemoveCheeseForm(Model model) {
+
+        String message = ("Remove Cheese functionality disabled.  Presumably written and directed by Chris bay at -->\n" +
+                "        http://education.launchcode.org/skills-back-end-java/studios/cheese-mvc-persistent/one-to-many/\n" +
+                "        Review Cheese Deletion Code\n" +
+                "        The code to remove a Cheese object is already in place for you, but\n" +
+                "        since we won't have a reason to use the delete method on a CrudRepository\n" +
+                "        interface, read the code in displayRemoveCheeseForm and processRemoveCheeseForm\n" +
+                "        to see how to remove an item from the database\n" +
+                "        HOWEVER: processRemoveCheeseForm() crashes if the Cheese is in a Menu.");
+//        Menu mens = menuDao.findAll(cheese.getId());
+//        AddMenuItemForm form = new AddMenuItemForm(cheeseDao.findAll(), Menu.class.getFields());
+//        model.addAttribute("title", "Add Menu Item: " + menu.getName());
+//        model.addAttribute("form", form);
         model.addAttribute("cheeses", cheeseDao.findAll());
-        model.addAttribute("menuIds", menuDao.findAll());
+        model.addAttribute("menus", menuDao.findAll());
         model.addAttribute("title", "Remove Cheese");
+//        model.addAttribute("message", message);
         return "cheese/remove";
     }
 
     @RequestMapping(value = "remove", method = RequestMethod.POST)
-    public String processRemoveCheeseForm(@RequestParam int[] cheeseIds) {
+    public String processRemoveCheeseForm(Model model, @RequestParam (value="cheeseIds", required=false) int[] cheeseIds) {
 
-        /*
-        http://education.launchcode.org/skills-back-end-java/studios/cheese-mvc-persistent/one-to-many/
-        Review Cheese Deletion Code
-        The code to remove a Cheese object is already in place for you, but
-        since we won't have a reason to use the delete method on a CrudRepository
-        interface, read the code in displayRemoveCheeseForm and processRemoveCheeseForm
-        to see how to remove an item from the database
-        HOWEVER: processRemoveCheeseForm() crashes if the Cheese is in a Menu
-        Does this need to be fixed to pass the rubric?
-        */
-        for (int cheeseId : cheeseIds) {
-            cheeseDao.delete(cheeseId);
+        System.out.println("CC.92.entered processRemoveCheeseForm...");
+
+        String message = ("Remove Cheese functionality disabled.  Presumably written and directed by Chris Bay at -->\n" +
+                "        http://education.launchcode.org/skills-back-end-java/studios/cheese-mvc-persistent/one-to-many/\n" +
+                "        Review Cheese Deletion Code\n" +
+                "        The code to remove a Cheese object is already in place for you, but\n" +
+                "        since we won't have a reason to use the delete method on a CrudRepository\n" +
+                "        interface, read the code in displayRemoveCheeseForm and processRemoveCheeseForm\n" +
+                "        to see how to remove an item from the database\n" +
+                "        HOWEVER: processRemoveCheeseForm() crashes if the Cheese is in a Menu.");
+
+        if (cheeseIds == null || cheeseIds.length == 0){
+            System.out.println("CC.117.cheeseId == " + cheeseIds);
+//            model.addAttribute("cheeses", cheeseDao.findAll());
+//            model.addAttribute("menus", menuDao.findAll());
+//            model.addAttribute("title", "Remove Cheese");
+//            model.addAttribute("message", message);
+//            return "redirect:";
+//            return "cheese/remove";
         }
-        return "redirect:";
+        else {
+            for (int cheeseId : cheeseIds) {
+                System.out.println("CC.127.cheeseId == " + cheeseId);
+//                cheeseDao.delete(cheeseId);
+            }
+        }
+        model.addAttribute("cheeses", cheeseDao.findAll());
+        model.addAttribute("menus", menuDao.findAll());
+        model.addAttribute("title", "Remove Cheese");
+//        model.addAttribute("message", message);
+        model.addAttribute("message", true);
+        return "cheese/remove";
     }
 
     @RequestMapping(value = "category/{id}", method = RequestMethod.GET)

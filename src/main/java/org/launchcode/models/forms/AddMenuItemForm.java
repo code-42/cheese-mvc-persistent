@@ -32,12 +32,12 @@ public class AddMenuItemForm {
         return menuId;
     }
 
-    public void setMenuId(int menuId) {
-        this.menuId = menuId;
-    }
-
     public int getCheeseId() {
         return cheeseId;
+    }
+
+    public void setMenuId(int menuId) {
+        this.menuId = menuId;
     }
 
     public void setCheeseId(int cheeseId) {
