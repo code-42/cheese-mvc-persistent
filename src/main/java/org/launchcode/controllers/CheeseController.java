@@ -49,7 +49,6 @@ public class CheeseController {
 
         model.addAttribute("cheeses", cheeseDao.findAll());
         model.addAttribute("title", "My Cheeses");
-
         return "cheese/index";
     }
 
@@ -67,7 +66,6 @@ public class CheeseController {
 
         if (errors.hasErrors()) {
             model.addAttribute("title", "Add Cheese");
-//            model.addAttribute("categories", categoryDao.findAll());
             return "cheese/add";
         }
 
@@ -80,58 +78,25 @@ public class CheeseController {
     @RequestMapping(value = "remove", method = RequestMethod.GET)
     public String displayRemoveCheeseForm(Model model) {
 
-        String message = ("Remove Cheese functionality disabled.  Presumably written and directed by Chris bay at -->\n" +
-                "        http://education.launchcode.org/skills-back-end-java/studios/cheese-mvc-persistent/one-to-many/\n" +
-                "        Review Cheese Deletion Code\n" +
-                "        The code to remove a Cheese object is already in place for you, but\n" +
-                "        since we won't have a reason to use the delete method on a CrudRepository\n" +
-                "        interface, read the code in displayRemoveCheeseForm and processRemoveCheeseForm\n" +
-                "        to see how to remove an item from the database\n" +
-                "        HOWEVER: processRemoveCheeseForm() crashes if the Cheese is in a Menu.");
-//        Menu mens = menuDao.findAll(cheese.getId());
-//        AddMenuItemForm form = new AddMenuItemForm(cheeseDao.findAll(), Menu.class.getFields());
-//        model.addAttribute("title", "Add Menu Item: " + menu.getName());
-//        model.addAttribute("form", form);
         model.addAttribute("cheeses", cheeseDao.findAll());
         model.addAttribute("menus", menuDao.findAll());
         model.addAttribute("title", "Remove Cheese");
-//        model.addAttribute("message", message);
         return "cheese/remove";
     }
 
     @RequestMapping(value = "remove", method = RequestMethod.POST)
     public String processRemoveCheeseForm(Model model, @RequestParam (value="cheeseIds", required=false) int[] cheeseIds) {
 
-        System.out.println("CC.92.entered processRemoveCheeseForm...");
-
-        String message = ("Remove Cheese functionality disabled.  Presumably written and directed by Chris Bay at -->\n" +
-                "        http://education.launchcode.org/skills-back-end-java/studios/cheese-mvc-persistent/one-to-many/\n" +
-                "        Review Cheese Deletion Code\n" +
-                "        The code to remove a Cheese object is already in place for you, but\n" +
-                "        since we won't have a reason to use the delete method on a CrudRepository\n" +
-                "        interface, read the code in displayRemoveCheeseForm and processRemoveCheeseForm\n" +
-                "        to see how to remove an item from the database\n" +
-                "        HOWEVER: processRemoveCheeseForm() crashes if the Cheese is in a Menu.");
-
-        if (cheeseIds == null || cheeseIds.length == 0){
-            System.out.println("CC.117.cheeseId == " + cheeseIds);
-//            model.addAttribute("cheeses", cheeseDao.findAll());
-//            model.addAttribute("menus", menuDao.findAll());
-//            model.addAttribute("title", "Remove Cheese");
-//            model.addAttribute("message", message);
-//            return "redirect:";
-//            return "cheese/remove";
-        }
-        else {
-            for (int cheeseId : cheeseIds) {
-                System.out.println("CC.127.cheeseId == " + cheeseId);
+        // Remove Cheese functionality disabled per instructions at
+        // http://education.launchcode.org/skills-back-end-java/studios/cheese-mvc-persistent/one-to-many/#review-cheese-deletion-code
+//        for (int cheeseId : cheeseIds) {
 //                cheeseDao.delete(cheeseId);
-            }
-        }
+//        }
+//        return "redirect:";
+
         model.addAttribute("cheeses", cheeseDao.findAll());
         model.addAttribute("menus", menuDao.findAll());
         model.addAttribute("title", "Remove Cheese");
-//        model.addAttribute("message", message);
         model.addAttribute("message", true);
         return "cheese/remove";
     }
